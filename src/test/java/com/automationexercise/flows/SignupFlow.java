@@ -28,6 +28,7 @@ public class SignupFlow {
                 data.get("firstName"),
                 data.get("lastName"),
                 data.get("address"),
+                data.get("country"),
                 data.get("state"),
                 data.get("city"),
                 data.get("zipcode"),
@@ -35,4 +36,11 @@ public class SignupFlow {
         );
         signupPage.clickCreateAccountButton();
     }
+
+    public void registerWithExistingEmail(DataTable table) {
+        Map<String, String> data = table.asMap(String.class, String.class);
+        loginPage.enterSignupNameAndEmail(data.get("name"), data.get("email"));
+    }
+
+
 }

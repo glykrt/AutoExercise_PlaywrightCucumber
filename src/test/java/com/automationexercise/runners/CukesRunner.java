@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features",
         glue = "com.automationexercise.stepDefs",
-        tags = "@reg",
+        tags = "@login",
         dryRun = false,
         monochrome = true
 )

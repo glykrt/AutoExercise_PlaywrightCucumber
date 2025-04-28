@@ -12,7 +12,7 @@ public class Hooks {
     public void setUp() {
         page = PlaywrightFactory.getPage();
         page.navigate(ConfigurationReader.get("url"));
-        page.waitForTimeout(3000);
+        page.waitForTimeout(10000);
     }
 
     @After

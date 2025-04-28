@@ -1,11 +1,9 @@
 package com.automationexercise.stepDefs;
 
 import io.cucumber.datatable.DataTable;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-
-import java.util.Map;
+import io.cucumber.java.en.When;
 
 public class SignupPage_StepDefs extends BasePage_StepDefs {
 
@@ -14,7 +12,7 @@ public class SignupPage_StepDefs extends BasePage_StepDefs {
         loginPage.clickSignupLogin();
     }
 
-    @And("The user registers with the following information:")
+    @When("The user registers with the following information:")
     public void theUserRegistersWithTheFollowingInformation(DataTable table) {
         signupFlow.registerWithDataTable(table);
     }
@@ -23,4 +21,17 @@ public class SignupPage_StepDefs extends BasePage_StepDefs {
     public void theAccountShouldBeCreatedSuccessfully() {
         assert signupPage.isAccountCreated();
     }
+
+    @When("The user registers with existing information:")
+    public void theUserRegistersWithExistingInformation(DataTable table) {
+        signupFlow.registerWithExistingEmail(table);
+    }
+
+    @Then("The user should see the error message")
+    public void theUserShouldSeeTheErrorMessage() {
+        assert signupPage.isExistAccount();
+    }
+
+
+
 }
