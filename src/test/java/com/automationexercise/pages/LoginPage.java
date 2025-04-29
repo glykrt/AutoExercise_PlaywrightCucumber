@@ -20,8 +20,19 @@ public class LoginPage extends BasePage {
 
     public void enterSignupNameAndEmail(String name, String email) {
         fill(nameSignupInput, name);
+        page.waitForTimeout(3000);
         fill(emailSignupInput, email);
+        page.waitForTimeout(3000);
         click(signupButton);
+        page.waitForTimeout(3000);
+    }
+    public void enterSignupNameAndEmail() {
+        fill(nameSignupInput, ConfigurationReader.get("newUsername"));
+        page.waitForTimeout(3000);
+        fill(emailSignupInput, ConfigurationReader.get("newEmail"));
+        page.waitForTimeout(3000);
+        click(signupButton);
+        page.waitForTimeout(3000);
     }
 
     public void enterEmail(String email) {
@@ -63,7 +74,7 @@ public class LoginPage extends BasePage {
         return errorMessageText;
     }
 
-    public String getErrorMessageText(String field) {
+    public String getLoginErrorMessageText(String field) {
         String selector = "input[data-qa='login-" + field + "']";
         String validationMessage = (String) page.locator(selector).evaluate("el => el.validationMessage");
         return validationMessage;

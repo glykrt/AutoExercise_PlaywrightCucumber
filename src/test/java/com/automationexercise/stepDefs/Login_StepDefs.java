@@ -11,6 +11,7 @@ public class Login_StepDefs extends BasePage_StepDefs{
     public void theUserLogsInWithValidCredentials() {
         loginFlow.performLogin();
     }
+
     @Then("Logged in as username should be visible")
     public void loggedInAsUsernameShouldBeVisible() {
         assert loginPage.getLoggedInAsLocator().isVisible();
@@ -38,12 +39,7 @@ public class Login_StepDefs extends BasePage_StepDefs{
 
     @Then("Browser validation message for field {string} should be {string}")
     public void browserValidationMessageForFieldShouldBe(String field, String expectedMessage) {
-        Assert.assertEquals(expectedMessage,loginPage.getErrorMessageText(field));
-    }
-
-    @When("User enters invalid email and password")
-    public void userEntersInvalidEmailAndPassword() {
-
+        Assert.assertEquals(expectedMessage,loginPage.getLoginErrorMessageText(field));
     }
 
     @Then("Error message {string} should be visible")

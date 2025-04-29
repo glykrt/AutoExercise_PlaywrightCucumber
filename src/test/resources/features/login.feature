@@ -1,3 +1,4 @@
+@login
 Feature: Login Functionality
 
   Background:
@@ -31,10 +32,11 @@ Feature: Login Functionality
       |                  |           | email    | Lütfen bu alanı doldurun.                                                              |
       | invalid          | test12345 | email    | Lütfen e-posta adresine bir \"@\" işareti ekleyin. \"invalid\" adresinde \"@\" eksik.  |
       | invalid@         | test12345 | email    | Lütfen \"@\" işaretinden sonra gelen kısmı ekleyin. \"invalid@\", tam bir adres değil. |
+      | @example.com     | test12345 | email    | Lütfen başına "@" ekleyin. "@example.com" adresi eksik.                                |
       | !%&+/()=         | test12345 | email    | Lütfen e-posta adresine bir \"@\" işareti ekleyin. \"!%&+/()=\" adresinde \"@\" eksik. |
       | EMPTY_SPACE      | test12345 | email    | Lütfen bu alanı doldurun.                                                              |
 
-  @negative  @login
+  @negative
   Scenario Outline: Invalid login attempts
     When User enters email "<email>" and password "<password>"
     Then Error message "Your email or password is incorrect!" should be visible

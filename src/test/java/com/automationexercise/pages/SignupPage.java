@@ -75,5 +75,21 @@ public class SignupPage extends BasePage{
     public boolean isExistAccount(){
         return isVisible(emailExistsTextLocator);
     }
+
+    public String getSignupErrorMessageText(String field) {
+        String selector = "input[data-qa='" + field + "']";
+        String validationMessage = (String) page.locator(selector).evaluate("el => el.validationMessage");
+        return validationMessage;
+    }
+    public void fillInvalidAddressForm(String firstName, String lastName, String address, String state, String city, String zipcode, String mobile){
+        fill(firstNameLocator, firstName);
+        fill(lastNameLocator, lastName);
+        fill(addressLocator, address);
+        fill(stateLocator, state);
+        fill(cityLocator, city);
+        fill(zipcodeLocator, zipcode);
+        fill(mobileLocator, mobile);
+    }
+
 }
 
