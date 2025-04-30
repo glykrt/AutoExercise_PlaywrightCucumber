@@ -50,7 +50,4 @@ public class SignupPage_StepDefs extends BasePage_StepDefs {
         signupFlow.registerWithInvalidInformation(password, firstName, lastName, address, state, city, zipcode, mobile);
     }
 
-    @Then("Browser validation message for the field {string} in the address form should be {string}")
-    public void browserValidationMessageForTheFieldInTheAddressFormShouldBe(String field, String exceptedMessage) {
-    }
 }

@@ -34,7 +34,7 @@ Feature: Login Functionality
       | invalid@         | test12345 | email    | Lütfen \"@\" işaretinden sonra gelen kısmı ekleyin. \"invalid@\", tam bir adres değil. |
       | @example.com     | test12345 | email    | Lütfen başına "@" ekleyin. "@example.com" adresi eksik.                                |
       | !%&+/()=         | test12345 | email    | Lütfen e-posta adresine bir \"@\" işareti ekleyin. \"!%&+/()=\" adresinde \"@\" eksik. |
-      | EMPTY_SPACE      | test12345 | email    | Lütfen bu alanı doldurun.                                                              |
+      | EMPTY_SPACES     | test12345 | email    | Lütfen bu alanı doldurun.                                                              |
 
   @negative
   Scenario Outline: Invalid login attempts

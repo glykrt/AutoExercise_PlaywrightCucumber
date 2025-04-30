@@ -45,7 +45,7 @@ public class SignupFlow {
     public void registerWithInvalidInformation(String password, String firstName, String lastName, String address, String state, String city, String zipcode, String mobile){
         loginPage.enterSignupNameAndEmail();
         signupPage.enterPassword(password);
-        signupPage.fillInvalidAddressForm( firstName, lastName, address, state, city, zipcode, mobile);
+        signupPage.fillInvalidAddressForm(firstName, lastName, address, state, city, zipcode, mobile);
         signupPage.clickCreateAccountButton();
 
     }

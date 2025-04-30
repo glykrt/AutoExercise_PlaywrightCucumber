@@ -1,5 +1,5 @@
+@signup
 Feature: User Registration and Account Deletion
-
   As a user, I should be able to login, so I can see my dashboard
 
   Background:
@@ -25,7 +25,6 @@ Feature: User Registration and Account Deletion
       | mobile    | 1234567890          |
     Then The account should be created successfully
 
-
   @negative
   Scenario: Prevent registration with an already registered email address
     When The user registers with existing information:
@@ -47,7 +46,7 @@ Feature: User Registration and Account Deletion
       | Sarah | @example.com     | signup-email | Lütfen başına \"@\" ekleyin. \"@example.com\" adresi eksik.                            |
       | Sarah | !%&+/()=         | signup-email | Lütfen e-posta adresine bir \"@\" işareti ekleyin. \"!%&+/()=\" adresinde \"@\" eksik. |
 
-  @negative @reg
+  @negative
   Scenario Outline: Validate browser popup for first invalid field in address form
     When The user enters invalid data on signup form with password "<password>", first name "<firstName>", last name "<lastName>", address "<address>", state "<state>", city "<city>", zipcode "<zipcode>", mobile "<mobile>"
     Then Browser validation message for registration field "<field>" should be "<expectedMessage>"

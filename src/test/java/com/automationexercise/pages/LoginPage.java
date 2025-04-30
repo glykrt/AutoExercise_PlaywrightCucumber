@@ -6,79 +6,69 @@ import com.microsoft.playwright.Page;
 
 public class LoginPage extends BasePage {
 
-    private final String nameSignupInput = "input[name='name']";
-    private final String emailSignupInput = "input[data-qa='signup-email']";
-    private final String signupButton = "button[data-qa='signup-button']";
-    private final String emailLoginInput = "input[data-qa=login-email]";
-    private final String passwordLoginInput = "input[data-qa=login-password]";
-    private final String loginButton = "[data-qa=login-button]";
-    private final String errorMessage = "Your email or password is incorrect!";
+    private final Locator nameSignupInput;
+    private final Locator emailSignupInput;
+    private final Locator signupButton;
+    private final Locator emailLoginInput;
+    private final Locator passwordLoginInput;
+    private final Locator loginButton;
+    private final Locator errorMessageLocator;
 
     public LoginPage(Page page) {
         super(page);
+        this.nameSignupInput = page.locator("input[name='name']");
+        this.emailSignupInput = page.locator("input[data-qa='signup-email']");
+        this.signupButton = page.locator("button[data-qa='signup-button']");
+        this.emailLoginInput = page.locator("input[data-qa='login-email']");
+        this.passwordLoginInput = page.locator("input[data-qa='login-password']");
+        this.loginButton = page.locator("[data-qa='login-button']");
+        this.errorMessageLocator = page.locator("p:has-text('Your email or password is incorrect!')");
     }
 
     public void enterSignupNameAndEmail(String name, String email) {
-        fill(nameSignupInput, name);
-        page.waitForTimeout(3000);
-        fill(emailSignupInput, email);
-        page.waitForTimeout(3000);
-        click(signupButton);
-        page.waitForTimeout(3000);
+        nameSignupInput.fill(name);
+        emailSignupInput.fill(email);
+        signupButton.click();
     }
+
     public void enterSignupNameAndEmail() {
-        fill(nameSignupInput, ConfigurationReader.get("newUsername"));
-        page.waitForTimeout(3000);
-        fill(emailSignupInput, ConfigurationReader.get("newEmail"));
-        page.waitForTimeout(3000);
-        click(signupButton);
-        page.waitForTimeout(3000);
+        nameSignupInput.fill(ConfigurationReader.get("newUsername"));
+        emailSignupInput.fill(ConfigurationReader.get("newEmail"));
+        signupButton.click();
     }
 
     public void enterEmail(String email) {
-        fill(emailLoginInput, email);
+        emailLoginInput.fill(email);
     }
 
     public void enterPassword(String password) {
-        fill(passwordLoginInput, password);
+        passwordLoginInput.fill(password);
     }
 
     public void clickLoginButton() {
-        click(loginButton);
+        loginButton.click();
     }
 
     public void login() {
-        fill(emailLoginInput, ConfigurationReader.get("validEmail"));
-        fill(passwordLoginInput, ConfigurationReader.get("validPassword"));
-        click(loginButton);
+        emailLoginInput.fill(ConfigurationReader.get("validEmail"));
+        passwordLoginInput.fill(ConfigurationReader.get("validPassword"));
+        loginButton.click();
     }
 
     public void login(String email, String password) {
-
-        if (email.equals("EMPTY_SPACE")) {
-            email = "     ";
-        }
-        if (password.equals("EMPTY_SPACES")) {
-            password = "     ";
-        }
-        fill(emailLoginInput, email);
-        page.waitForTimeout(3000);
-        fill(passwordLoginInput, password);
-        page.waitForTimeout(3000);
-        click(loginButton);
-        page.waitForTimeout(3000);
+        if (email.equals("EMPTY_SPACE")) email = "     ";
+        if (password.equals("EMPTY_SPACES")) password = "     ";
+        emailLoginInput.fill(email);
+        passwordLoginInput.fill(password);
+        loginButton.click();
     }
 
     public String getErrorMessage() {
-        String errorMessageText = errorMessage;
-        return errorMessageText;
+        return errorMessageLocator.textContent().trim();
     }
 
     public String getLoginErrorMessageText(String field) {
-        String selector = "input[data-qa='login-" + field + "']";
-        String validationMessage = (String) page.locator(selector).evaluate("el => el.validationMessage");
-        return validationMessage;
+        Locator fieldLocator = page.locator("input[data-qa='login-" + field + "']");
+        return fieldLocator.evaluate("el => el.validationMessage").toString();
     }
-
-
 }

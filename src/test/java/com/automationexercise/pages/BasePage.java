@@ -4,50 +4,44 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 public abstract class BasePage {
-    protected Page page;
+    protected final Page page;
+
+    protected final Locator signupLoginBtn;
+    protected final Locator logoutBtn;
+    protected final Locator deleteAccountBtn;
+    protected final Locator loggedInAsText;
+    protected final Locator contactUsBtn;
 
     public BasePage(Page page) {
         this.page = page;
+        this.signupLoginBtn = page.locator("a[href='/login']");
+        this.logoutBtn = page.locator("a[href='/logout']");
+        this.deleteAccountBtn = page.locator("a[href='/delete_account']");
+        this.loggedInAsText = page.locator("//*[contains(text(),'Logged in as')]");
+        this.contactUsBtn = page.locator("a[href='/contact_us']");
     }
 
-    private final String signupLoginBtn = "a[href='/login']";
-    private final String logoutBtn = "a[href='/logout']";
-    private final String deleteAccountBtn = "a[href='/delete_account']";
-    private final String loggedInAs = "//*[contains(text(),'Logged in as')]";
-
     public void clickSignupLogin() {
-        page.click(signupLoginBtn);
+        signupLoginBtn.click();
     }
 
     public void clickLogout() {
-        page.click(logoutBtn);
+        logoutBtn.click();
     }
 
     public void clickDeleteAccount() {
-        page.click(deleteAccountBtn);
+        deleteAccountBtn.click();
+    }
+
+    public void clickContactUsBtn(){
+        contactUsBtn.click();
+    }
+
+    public boolean isVisibleSignupButton() {
+        return signupLoginBtn.isVisible();
     }
 
     public Locator getLoggedInAsLocator() {
-        return page.locator(loggedInAs);
-    }
-
-    public boolean isVisibleSignupButton(){
-      return isVisible(signupLoginBtn);
-    }
-
-    public void click(String selector) {
-        page.click(selector);
-    }
-
-    public void fill(String selector, String text) {
-        page.fill(selector, text);
-    }
-
-    public boolean isVisible(String selector) {
-        return page.isVisible(selector);
-    }
-
-    public Locator getLocator(String selector) {
-        return page.locator(selector);
+        return loggedInAsText;
     }
 }
