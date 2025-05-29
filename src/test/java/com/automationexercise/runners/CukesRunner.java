@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
         },
         features = "src/test/resources/features",
         glue = "com.automationexercise.stepDefs",
-        tags = "@contactUs",
+        tags = "@wip",
         dryRun = false,
         monochrome = true
 )

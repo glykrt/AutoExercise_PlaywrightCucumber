@@ -17,4 +17,25 @@ public class ContactUsFlow {
         contactUsPage.clickSubmit();
 
     }
+
+    public void submitFormWithInvalidEmailOnly(String email) {
+        contactUsPage.enterInvalidEmail(email);
+        contactUsPage.clickSubmit();
+    }
+
+    public void subscribeToNewsletter(String email) {
+        contactUsPage.enterEmailAndSubscribe(email);
+        contactUsPage.clickSubscribe();
+    }
+
+    public void attemptToSubscribeWithInvalidEmail(String email) {
+        if (email.equals("EMPTY_SPACE")) email = "     ";
+        if (email.equals("spaces@gmail.com")) email = "     @gmail.com";
+        contactUsPage.enterEmailAndSubscribe(email);
+        contactUsPage.clickSubscribe();
+    }
+
+
+
+
 }

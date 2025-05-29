@@ -14,7 +14,10 @@ public class ContactUsPage extends BasePage {
     private final Locator messageTextArea;
     private final Locator submitButton;
     private final Locator uploadFile;
-    private final Locator successMessage;
+    private final Locator contactSuccessMessage;
+    private final Locator subscribeInput;
+    private final Locator subscribeButton;
+    private final Locator subscriptionSuccessMessage;
 
     public ContactUsPage(Page page) {
         super(page);
@@ -24,7 +27,10 @@ public class ContactUsPage extends BasePage {
         this.messageTextArea = page.locator("#message");
         this.uploadFile = page.locator("input[name='upload_file']");
         this.submitButton = page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Submit"));
-        this.successMessage = page.locator(".status.alert.alert-success");
+        this.contactSuccessMessage = page.locator(".status.alert.alert-success");
+        this.subscribeInput = page.locator("#susbscribe_email");
+        this.subscribeButton = page.locator("button[type='submit']");
+        this.subscriptionSuccessMessage = page.locator(".col-md-9.form-group");
     }
 
     public void fillContactForm(String name, String email, String subject, String message) {
@@ -53,9 +59,37 @@ public class ContactUsPage extends BasePage {
         submitButton.click();
     }
 
-    public String getSuccessMessageText() {
-        String actualMessage = successMessage.innerText();
+    public void enterInvalidEmail(String email){
+        if (email.equals("EMPTY_SPACE")) email = "     ";
+        if (email.equals("spaces@gmail.com")) email = "     @gmail.com";
+        emailInput.fill(email);
+    }
+
+    public String getContactSuccessMessageText() {
+        String actualMessage = contactSuccessMessage.innerText();
         return actualMessage;
     }
+
+    public String getContactUsActualMessageText(){
+        return emailInput.evaluate("el => el.validationMessage").toString();
+    }
+
+    public void enterEmailAndSubscribe(String email){
+        subscribeInput.fill(email);
+        page.waitForTimeout(3);
+    }
+    public void clickSubscribe(){
+        subscribeButton.click();
+    }
+
+    public String getSubscriptionSuccessMessage() {
+        String actualMessage = subscriptionSuccessMessage.textContent().trim();
+        return actualMessage;
+    }
+
+    public String getSubscriptionEmailValidationMessage(){
+        return subscribeInput.evaluate("el => el.validationMessage").toString();
+    }
+
 
 }
